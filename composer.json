@@ -1,0 +1,34 @@
+{
+    "name": "dotblue/mandrill",
+    "description": "OO wrapper above Mandrill API for sending e-mails",
+    "type": "library",
+    "keywords": [
+        "mandrill",
+        "e-mail",
+        "nette"
+    ],
+    "license": ["BSD-3-Clause"],
+    "authors": [
+        {
+            "name": "Pavel Kučera",
+            "homepage": "http://github.com/pavelkucera"
+        },
+        {
+            "name": "dotBlue",
+            "homepage": "http://dotblue.net"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "nette/tester": "@dev",
+        "nette/nette": "~2.1"
+    },
+    "autoload": {
+        "psr-0": {
+            "DotBlue\\Mandrill": "."
+        }
+    }
+}
