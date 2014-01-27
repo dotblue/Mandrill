@@ -23,7 +23,7 @@ class Mandrill implements IApiCaller
 	public $sslVerifyPeer = TRUE;
 
 	/** @var bool */
-	public $sslVerifyHost = TRUE;
+	public $sslVerifyHost = 2;
 
 
 	/**
