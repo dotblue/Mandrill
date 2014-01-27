@@ -18,6 +18,10 @@
             "homepage": "http://dotblue.net"
         }
     ],
+    "support": {
+        "issues": "https://github.com/dotblue/mandrill/issues",
+        "source": "https://github.com/dotblue/mandrill"
+    },
     "require": {
         "php": ">=5.4",
         "ext-curl": "*"
