@@ -18,6 +18,7 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 	 */
 	public $defaults = [
 		'apiKey' => '',
+		'replaceNetteMailer' => TRUE,
 	];
 
 
@@ -36,5 +37,22 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 
 		$container->addDefinition($this->prefix('mailer'))
 			->setClass('DotBlue\Mandrill\Mailer');
+
+		$container->addDefinition($this->prefix('messageConverter'))
+			->setClass('DotBlue\Mandrill\NetteBridge\Mail\MessageConverter');
+
+		if ($config['replaceNetteMailer']) {
+			$this->loadMailerReplacement();
+		}
+	}
+
+
+	private function loadMailerReplacement()
+	{
+		$container = $this->getContainerBuilder();
+
+		$container->removeDefinition('nette.mailer');
+		$container->addDefinition('nette.mailer')
+			->setClass('DotBlue\Mandrill\NetteBridge\Mail\MandrillMailer');
 	}
 }
