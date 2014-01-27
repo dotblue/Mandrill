@@ -174,10 +174,10 @@ class MessageExporter implements IMessageExporter
 
 
 	/**
-	 * @param \DotBlue\Mandrill\AbstractMessage $message
+	 * @param \DotBlue\Mandrill\IBasicMessage $message
 	 * @return array
 	 */
-	private function exportOptions(\DotBlue\Mandrill\AbstractMessage $message)
+	private function exportOptions(\DotBlue\Mandrill\IBasicMessage $message)
 	{
 		$options = get_object_vars($message);
 		$export = [
@@ -198,10 +198,10 @@ class MessageExporter implements IMessageExporter
 
 
 	/**
-	 * @param \DotBlue\Mandrill\AbstractMessage $message
+	 * @param \DotBlue\Mandrill\IBasicMessage $message
 	 * @return \DateTime|string|NULL
 	 */
-	private function exportSendAt(\DotBlue\Mandrill\AbstractMessage $message)
+	private function exportSendAt(\DotBlue\Mandrill\IBasicMessage $message)
 	{
 		$sendAt = $message->getSendAt();
 		if (!$sendAt) {
