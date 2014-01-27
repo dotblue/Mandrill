@@ -34,6 +34,15 @@ abstract class AbstractMessage implements IBasicMessage
 	/** @var string */
 	public $subject;
 
+	/** @var bool */
+	public $async;
+
+	/** @var string */
+	public $ipPool;
+
+	/** @var \DateTime|string */
+	public $sendAt;
+
 
 	/**
 	 * @return IEmailAddress
@@ -94,6 +103,33 @@ abstract class AbstractMessage implements IBasicMessage
 			}
 		}
 		return FALSE;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function getAsync()
+	{
+		return $this->async;
+	}
+
+
+	/**
+	 * @return string
+	 */
+	public function getIpPool()
+	{
+		return $this->ipPool;
+	}
+
+
+	/**
+	 * @return \DateTime|string
+	 */
+	public function getSendAt()
+	{
+		return $this->sendAt;
 	}
 
 

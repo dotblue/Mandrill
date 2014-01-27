@@ -13,18 +13,26 @@ namespace DotBlue\Mandrill\Exporters;
  */
 class MessageExporter implements IMessageExporter
 {
+	/** @var string[] */
+	private $protectedMessageProperties = [
+		'async',
+		'ipPool',
+		'sendAt',
+	];
+
+
 	/**
 	 * @param \DotBlue\Mandrill\IMessage $message
 	 * @return array
 	 */
 	public function message(\DotBlue\Mandrill\IMessage $message)
 	{
-		return [
-			'message' => $this->exportMessage($message) + [
+		return array_replace_recursive($this->exportMessage($message), [
+			'message' => [
 				'html' => $message->getHtml(),
 				'text' => $message->getText(),
 			],
-		];
+		]);
 	}
 
 
@@ -34,11 +42,10 @@ class MessageExporter implements IMessageExporter
 	 */
 	public function templateMessage(\DotBlue\Mandrill\ITemplateMessage $message)
 	{
-		return [
-			'message' => $this->exportMessage($message),
+		return array_replace_recursive($this->exportMessage($message), [
 			'template_name' => $message->getTemplateName(),
 			'template_content' => $this->exportVariables($message->getEditableRegions()),
-		];
+		]);
 	}
 
 
@@ -48,23 +55,25 @@ class MessageExporter implements IMessageExporter
 	 */
 	private function exportMessage(\DotBlue\Mandrill\IBasicMessage $message)
 	{
-		return $this->exportOptions($message) + [
-			'from_email' => $message->getFrom() ? $message->getFrom()->getEmail() : NULL,
-			'from_name' => $message->getFrom() ? $message->getFrom()->getName() : NULL,
-			'subject' => $message->getSubject(),
+		return array_replace_recursive($this->exportOptions($message), [
+			'message' => [
+				'from_email' => $message->getFrom() ? $message->getFrom()->getEmail() : NULL,
+				'from_name' => $message->getFrom() ? $message->getFrom()->getName() : NULL,
+				'subject' => $message->getSubject(),
 
-			// Recipient
-			'to' => $this->exportRecipients($message->getRecipients()),
-			'recipient_metadata' => $this->exportRecipientMetadata($message->getRecipients()),
+				// Recipient
+				'to' => $this->exportRecipients($message->getRecipients()),
+				'recipient_metadata' => $this->exportRecipientMetadata($message->getRecipients()),
 
-			// Merge vars
-			'global_merge_vars' => $this->exportVariables($message->getGlobalMergeVars()),
-			'merge_vars' => $this->exportMergeVariables($message->getMergeVars()),
+				// Merge vars
+				'global_merge_vars' => $this->exportVariables($message->getGlobalMergeVars()),
+				'merge_vars' => $this->exportMergeVariables($message->getMergeVars()),
 
-			// Attachments
-			'attachments' => $this->exportAttachments($message->getAttachments()),
-			'images' => $this->exportAttachments($message->getImages()),
-		];
+				// Attachments
+				'attachments' => $this->exportAttachments($message->getAttachments()),
+				'images' => $this->exportAttachments($message->getImages()),
+			],
+		]);
 	}
 
 
@@ -171,15 +180,39 @@ class MessageExporter implements IMessageExporter
 	private function exportOptions(\DotBlue\Mandrill\AbstractMessage $message)
 	{
 		$options = get_object_vars($message);
-		$export = [];
+		$export = [
+			'message' => [],
+			'async' => $message->getAsync(),
+			'ip_pool' => $message->getIpPool(),
+			'send_at' => $this->exportSendAt($message),
+		];
 		foreach ($options as $name => $value) {
-			if ($value === NULL || is_array($value) && count($value) === 0) {
+			if ($value === NULL || is_array($value) && count($value) === 0 || in_array($name, $this->protectedMessageProperties)) {
 				continue;
 			}
 
-			$export[$this->processOptionName($name)] = $value;
+			$export['message'][$this->processOptionName($name)] = $value;
 		}
 		return $export;
+	}
+
+
+	/**
+	 * @param \DotBlue\Mandrill\AbstractMessage $message
+	 * @return \DateTime|string|NULL
+	 */
+	private function exportSendAt(\DotBlue\Mandrill\AbstractMessage $message)
+	{
+		$sendAt = $message->getSendAt();
+		if (!$sendAt) {
+			return NULL;
+		}
+
+		if ($sendAt instanceof \DateTime) {
+			return $sendAt->format('Y-m-d H:i:s');
+		}
+
+		return $sendAt;
 	}
 
 

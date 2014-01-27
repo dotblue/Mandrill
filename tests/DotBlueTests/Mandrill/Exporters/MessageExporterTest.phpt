@@ -187,6 +187,9 @@ class MessageExporterTest extends \Tester\TestCase
 				'inline_css' => TRUE,
 				'preserve_recipients' => FALSE,
 			],
+			'async' => TRUE,
+			'ip_pool' => 'IP pool',
+			'send_at' => '2012-12-21 00:00:00',
 		];
 	}
 }

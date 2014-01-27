@@ -59,4 +59,22 @@ interface IBasicMessage
 	 * @return IAttachment[]
 	 */
 	function getImages();
+
+
+	/**
+	 * @return bool
+	 */
+	function getAsync();
+
+
+	/**
+	 * @return string
+	 */
+	function getIpPool();
+
+
+	/**
+	 * @return \DateTime|string
+	 */
+	function getSendAt();
 }

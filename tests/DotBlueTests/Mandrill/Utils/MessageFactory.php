@@ -43,6 +43,9 @@ class MessageFactory
 	{
 		$message->setFrom('sender@example.com', 'Sender of this e-mail');
 		$message->setSubject('Subject');
+		$message->async = TRUE;
+		$message->ipPool = 'IP pool';
+		$message->sendAt = new \DateTime('2012-12-21 00:00:00');
 
 		// Recipients
 		$message->addTo('first@example.com', 'First Example', [
