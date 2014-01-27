@@ -6,6 +6,8 @@ Requirements
 ------------
 PHP 5.4+ (we love short array syntax).
 
+curl
+
 Installation
 ------------
 The easiest way is to use [Composer](http://getcomposer.org/):
@@ -35,3 +37,5 @@ $mailer->send($message);
 ```
 Similary you can send a template by using class `DotBlue\Mandrill\TemplateMessage` in combination
 with `DotBlue\Mandrill\Mailer::sendTemplate` method.
+
+You can find more examples in [Documentation](docs/en)
