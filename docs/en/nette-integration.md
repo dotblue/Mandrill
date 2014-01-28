@@ -17,4 +17,13 @@ Then `DotBlue\Mandrill\Mailer` is accessible eg. via autowiring.
 
 Nette\Mail support
 ------------------
-Currently there is none although I plan to add it soon.
+Register the library extension, require a `Nette\Mail\IMailer` instance and pass a `Nette\Mail\Message` object,
+it will be sent through Mandrill, attachments included, only embedded files won't. Yep, you don't need to change
+anything to change method of sending.
+
+If you need to setup some Mandrill parameters to the message:
+```php
+$netteMailer->send($message, function(\DotBlue\Mandrill\Message $message) {
+	// do whatever you need
+});
+```

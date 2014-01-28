@@ -30,6 +30,8 @@ class ExtensionTest extends \Tester\TestCase
 		$container->getByType('DotBlue\Mandrill\Exporters\IMessageExporter');
 		$container->getByType('DotBlue\Mandrill\IApiCaller');
 		$container->getByType('DotBlue\Mandrill\Mailer');
+		$container->getByType('DotBlue\Mandrill\NetteBridge\Mail\MessageConverter');
+		$container->getByType('Nette\Mail\IMailer');
 	}
 
 
