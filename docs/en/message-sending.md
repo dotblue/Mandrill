@@ -27,6 +27,11 @@ $message->setGlobalMergeVar('myName', 'My name');
 $message->html = 'Hi *|name|*,<br>Info about an <b>awesome</b> trip to Mars.<br>Yours *|myName|*';
 $message->text = 'Hi *|name|*, Info about an awesome trip to Mars. Yours *|myName|*';
 
+$message->addAttachment(new DotBlue\Mandrill\Attachment('scribble.txt', 'Content', 'text/plain'));
+$message->addAttachment(DotBlue\Mandrill\Attachment::fromFile('photo.png', 'image/png', $forceName = NULL));
+
+$message->addImage(DotBlue\Mandrill\Attachment::fromFile('selfie.png', 'image/png'));
+
 $mailer->send($message);
 ```
 
