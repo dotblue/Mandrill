@@ -12,7 +12,7 @@ Installation
 ------------
 The easiest way is to use [Composer](http://getcomposer.org/):
 ```sh
-$ composer require dotblue/mandrill@~1.1
+$ composer require dotblue/mandrill@~1.2
 ```
 Of course you can always clone this repository and commit it into your project manually.
 
