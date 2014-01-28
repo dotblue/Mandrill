@@ -25,12 +25,12 @@ class Attachment implements IAttachment
 
 	/**
 	 * @param string $name
-	 * @param string $type
+	 * @param string $mimeType
 	 * @param string $content
 	 */
-	public function __construct($name, $type, $content)
+	public function __construct($name, $mimeType, $content)
 	{
-		$this->type = $type;
+		$this->type = $mimeType;
 		$this->name = $name;
 		$this->content = $content;
 	}
@@ -65,12 +65,12 @@ class Attachment implements IAttachment
 
 	/**
 	 * @param string $path
-	 * @param string $type
+	 * @param string $mimeType
 	 * @param string $name
 	 * @return static
 	 * @throws \RuntimeException
 	 */
-	public static function fromFile($path, $type, $name = NULL)
+	public static function fromFile($path, $mimeType, $name = NULL)
 	{
 		$fileContent = @file_get_contents($path); // intentionally @
 		if ($fileContent === FALSE) {
@@ -78,6 +78,6 @@ class Attachment implements IAttachment
 		}
 		$content = base64_encode($fileContent);
 		$name = $name ?: pathinfo($path, PATHINFO_BASENAME);
-		return new static($name, $type, $content);
+		return new static($name, $mimeType, $content);
 	}
 }
