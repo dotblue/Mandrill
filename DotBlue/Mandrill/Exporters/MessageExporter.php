@@ -161,7 +161,7 @@ class MessageExporter implements IMessageExporter
 			$list[] = [
 				'type' => $attachment->getType(),
 				'name' => $attachment->getName(),
-				'content' => $attachment->getContent(),
+				'content' => base64_encode($attachment->getContent()),
 			];
 		}
 		return $list;

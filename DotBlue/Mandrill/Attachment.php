@@ -76,7 +76,7 @@ class Attachment implements IAttachment
 		if ($fileContent === FALSE) {
 			throw new \RuntimeException("File '$path' is not readable.'");
 		}
-		$content = base64_encode($fileContent);
+		$content = $fileContent;
 		$name = $name ?: pathinfo($path, PATHINFO_BASENAME);
 		return new static($name, $mimeType, $content);
 	}

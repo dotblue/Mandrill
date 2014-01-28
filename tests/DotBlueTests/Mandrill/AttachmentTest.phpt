@@ -45,7 +45,7 @@ class AttachmentTest extends \Tester\TestCase
 	{
 		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt', 'text/plain', 'name.pdf');
 
-		$content = base64_encode("42");
+		$content = "42";
 		Assert::same('name.pdf', $attachment->getName());
 		Assert::same('text/plain', $attachment->getType());
 		Assert::same($content, $attachment->getContent());
