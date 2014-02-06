@@ -12,6 +12,7 @@
 namespace DotBlueTests\Mandrill;
 
 use DotBlue\Mandrill\Attachment;
+use DotBlue\Mandrill\Utils\MimeTypeDetector;
 use Tester\Assert;
 
 
@@ -25,7 +26,7 @@ class AttachmentTest extends \Tester\TestCase
 {
 	public function testConstructor()
 	{
-		$attachment = new Attachment('of a bad name', 'mime/type', 'with some content');
+		$attachment = new Attachment('of a bad name', 'with some content', 'mime/type');
 
 		Assert::same('of a bad name', $attachment->getName());
 		Assert::same('mime/type', $attachment->getType());
@@ -35,7 +36,7 @@ class AttachmentTest extends \Tester\TestCase
 
 	public function testFromFileNameDetection()
 	{
-		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt', 'text/plain');
+		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt', NULL, 'text/plain');
 
 		Assert::same('attachment.txt', $attachment->getName());
 	}
@@ -43,12 +44,26 @@ class AttachmentTest extends \Tester\TestCase
 
 	public function testFromFile()
 	{
-		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt', 'text/plain', 'name.pdf');
+		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt', 'name.pdf', 'text/plain');
 
 		$content = "42";
 		Assert::same('name.pdf', $attachment->getName());
 		Assert::same('text/plain', $attachment->getType());
 		Assert::same($content, $attachment->getContent());
+	}
+
+
+	/**
+	 * Yep, ain't test of detector itself
+	 */
+	public function testAutomaticMimeTypeDetection()
+	{
+		$attachment = Attachment::fromFile(__DIR__ . '/files/attachment.txt');
+		$expected = MimeTypeDetector::fromString(file_get_contents(__DIR__ . '/files/attachment.txt'));
+		Assert::same($expected, $attachment->getType());
+
+		$attachment = new Attachment('attachment.txt', $attachment->getContent());
+		Assert::same($expected, $attachment->getType());
 	}
 
 

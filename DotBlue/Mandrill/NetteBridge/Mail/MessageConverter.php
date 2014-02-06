@@ -91,7 +91,7 @@ class MessageConverter extends \Nette\Object
 			$type = $attachment->getHeader('Content-Type');
 			$content = $attachment->getBody();
 
-			$message->addAttachment(new \DotBlue\Mandrill\Attachment($name, $type, $content));
+			$message->addAttachment(new \DotBlue\Mandrill\Attachment($name, $content, $type));
 		}
 	}
 

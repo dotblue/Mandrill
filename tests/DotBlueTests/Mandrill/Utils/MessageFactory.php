@@ -66,7 +66,7 @@ class MessageFactory
 		$message->setMergeVar('first@example.com', 'another', 'down');
 
 		// Attachments
-		$message->addAttachment(Attachment::fromFile(__DIR__ . '/../files/attachment.txt', 'plain/text'));
-		$message->addImage(Attachment::fromFile(__DIR__ . '/../files/php.gif', 'image/gif'));
+		$message->addAttachment(Attachment::fromFile(__DIR__ . '/../files/attachment.txt', NULL, 'plain/text'));
+		$message->addImage(Attachment::fromFile(__DIR__ . '/../files/php.gif', NULL, 'image/gif'));
 	}
 }

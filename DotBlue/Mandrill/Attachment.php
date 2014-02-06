@@ -6,6 +6,8 @@
 
 namespace DotBlue\Mandrill;
 
+use DotBlue\Mandrill\Utils\MimeTypeDetector;
+
 
 /**
  * @author Pavel Kučera
@@ -25,11 +27,14 @@ class Attachment implements IAttachment
 
 	/**
 	 * @param string $name
-	 * @param string $mimeType
 	 * @param string $content
+	 * @param string $mimeType
 	 */
-	public function __construct($name, $mimeType, $content)
+	public function __construct($name, $content, $mimeType = NULL)
 	{
+		if ($mimeType === NULL) {
+			$mimeType = MimeTypeDetector::fromString($content);
+		}
 		$this->type = $mimeType;
 		$this->name = $name;
 		$this->content = $content;
@@ -65,12 +70,12 @@ class Attachment implements IAttachment
 
 	/**
 	 * @param string $path
-	 * @param string $mimeType
 	 * @param string $name
+	 * @param string $mimeType
 	 * @return static
 	 * @throws \RuntimeException
 	 */
-	public static function fromFile($path, $mimeType, $name = NULL)
+	public static function fromFile($path, $name = NULL, $mimeType = NULL)
 	{
 		$fileContent = @file_get_contents($path); // intentionally @
 		if ($fileContent === FALSE) {
@@ -78,6 +83,6 @@ class Attachment implements IAttachment
 		}
 		$content = $fileContent;
 		$name = $name ?: pathinfo($path, PATHINFO_BASENAME);
-		return new static($name, $mimeType, $content);
+		return new static($name, $content, $mimeType);
 	}
 }
