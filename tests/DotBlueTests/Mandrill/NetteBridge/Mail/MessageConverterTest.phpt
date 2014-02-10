@@ -68,7 +68,7 @@ class MessageConverterTest extends \Tester\TestCase
 		$message->text = 'text';
 		$message->html = 'html text';
 
-		$message->addAttachment(\DotBlue\Mandrill\Attachment::fromFile(__DIR__ . '/../../files/attachment.txt', 'text/plain'));
+		$message->addAttachment(\DotBlue\Mandrill\Attachment::fromFile(__DIR__ . '/../../files/attachment.txt', NULL, 'text/plain'));
 		$message->headers += \Nette\Mail\Message::$defaultHeaders;
 		$message->headers['Date'] = (new \DateTime('1969-06-20T20:17:40Z'))->format('r');
 		$message->headers['Reply-To'] = 'reply@e-mail.com,reply2@e-mail.com';
