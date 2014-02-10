@@ -17,7 +17,6 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 	 * @var array
 	 */
 	public $defaults = [
-		'apiKey' => '',
 		'replaceNetteMailer' => TRUE,
 	];
 
