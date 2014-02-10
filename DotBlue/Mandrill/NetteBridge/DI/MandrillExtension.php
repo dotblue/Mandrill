@@ -27,6 +27,10 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 		$container = $this->getContainerBuilder();
 		$config = $this->getConfig($this->defaults);
 
+        if (empty($config['apiKey'])) {
+            throw new \Nette\InvalidArgumentException("Mandrill api key has not been set.");
+        }
+
 		$container->addDefinition($this->prefix('mandrill'))
 			->setClass('DotBlue\Mandrill\Mandrill', [
 				$config['apiKey'],

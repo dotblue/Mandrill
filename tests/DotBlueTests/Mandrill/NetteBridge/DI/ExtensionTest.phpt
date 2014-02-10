@@ -35,6 +35,26 @@ class ExtensionTest extends \Tester\TestCase
 	}
 
 
+    public function testRejectsEmptyKey()
+    {
+        $configurator = new \Nette\Configurator();
+        $configurator->addParameters([
+            'container' => [
+                'class' => 'EmptyKeyContainer',
+            ]
+        ]);
+        $configurator->setTempDirectory(TEMP_DIR);
+        $configurator->defaultExtensions = [];
+        $configurator->onCompile[] = function($configurator, $compiler) {
+            $compiler->addExtension('mandrill', new MandrillExtension());
+        };
+
+        Assert::throws(function() use ($configurator) {
+            $configurator->createContainer();
+        }, 'Nette\InvalidArgumentException', 'Mandrill api key has not been set.');
+    }
+
+
 	public function testPassesKey()
 	{
 		$container = $this->createContainer();
