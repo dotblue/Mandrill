@@ -31,6 +31,14 @@ class TemplateMessageTest extends \Tester\TestCase
 	}
 
 
+    public function testTemplateNameSet()
+    {
+        $message = new TemplateMessage('templateName');
+        $message->setTemplateName('differentTemplateName');
+        Assert::same('differentTemplateName', $message->getTemplateName());
+    }
+
+
 	public function testContent()
 	{
 		$message = new TemplateMessage('dummy');
