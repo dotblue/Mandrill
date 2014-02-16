@@ -25,7 +25,7 @@ class TemplateMessage extends AbstractMessage implements ITemplateMessage
 	 */
 	public function __construct($templateName = NULL)
 	{
-        $this->setTemplateName($templateName);
+		$this->setTemplateName($templateName);
 	}
 
 
@@ -38,14 +38,14 @@ class TemplateMessage extends AbstractMessage implements ITemplateMessage
 	}
 
 
-    /**
-     * @param string $templateName
-     * @return $this
-     */
-    public function setTemplateName($templateName)
-    {
-        $this->templateName = $templateName;
-    }
+	/**
+	 * @param string $templateName
+	 * @return $this
+	 */
+	public function setTemplateName($templateName)
+	{
+		$this->templateName = $templateName;
+	}
 
 
 	/**
