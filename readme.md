@@ -20,7 +20,7 @@ Usage
 -----
 ```php
 $mandrill = new DotBlue\Mandrill\Mandrill($apiKey);
-$mailer = new Dotblue\Mandrill\Mailer(new DotBlue\Mandrill\Exporters\MessageExporter(), $mandrill);
+$mailer = new DotBlue\Mandrill\Mailer(new DotBlue\Mandrill\Exporters\MessageExporter(), $mandrill);
 
 $message = new DotBlue\Mandrill\Message();
 $message->setFrom('maesters@citadel.sif');
