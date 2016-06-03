@@ -1,0 +1,3 @@
+mandrill2:
+	apiKey: "5678"
+	autowire: false

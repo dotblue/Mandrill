@@ -25,6 +25,7 @@ class ExtensionTest extends \Tester\TestCase
 {
 	public function testAddsServices()
 	{
+		\Tester\Environment::$checkAssertions = FALSE;
 		$container = $this->createContainer();
 
 		$container->getByType('DotBlue\Mandrill\Exporters\IMessageExporter');
@@ -63,17 +64,38 @@ class ExtensionTest extends \Tester\TestCase
 	}
 
 
+	public function testAutowireIsConfigurable()
+	{
+		$container = $this->createContainer(TRUE);
+
+		$container->getByType('DotBlue\Mandrill\Exporters\IMessageExporter');
+		$container->getByType('DotBlue\Mandrill\IApiCaller');
+		$container->getByType('DotBlue\Mandrill\Mailer');
+		$container->getByType('DotBlue\Mandrill\NetteBridge\Mail\MessageConverter');
+		$container->getByType('Nette\Mail\IMailer');
+
+		Assert::same('1234', $container->getService('mandrill.mandrill')->getApiKey());
+		Assert::same('5678', $container->getService('mandrill2.mandrill')->getApiKey());
+	}
+
+
 	/**
 	 * @return \SystemContainer
 	 */
-	private function createContainer()
+	private function createContainer($registerSecondExtension = FALSE)
 	{
 		$configurator = new \Nette\Configurator();
 		$configurator->setTempDirectory(TEMP_DIR);
 		$configurator->addConfig(__DIR__ . '/files/config.neon');
+		if ($registerSecondExtension) {
+			$configurator->addConfig(__DIR__ . '/files/config2.neon');
+		}
 		$configurator->defaultExtensions = [];
-		$configurator->onCompile[] = function($configurator, $compiler) {
+		$configurator->onCompile[] = function($configurator, $compiler) use ($registerSecondExtension) {
 			$compiler->addExtension('mandrill', new MandrillExtension());
+			if ($registerSecondExtension) {
+				$compiler->addExtension('mandrill2', new MandrillExtension());
+			}
 		};
 		return $configurator->createContainer();
 	}
