@@ -15,6 +15,22 @@ mandrill:
 ```
 Then `DotBlue\Mandrill\Mailer` is accessible eg. via autowiring.
 
+Autowiring
+----------
+In case you need to register multiple extensions you can turn off autowiring for one of them:
+```yaml
+extensions:
+    mandrill: DotBlue\Mandrill\NetteBridge\DI\MandrillExtension
+    secondMandrill: DotBlue\Mandrill\NetteBridge\DI\MandrillExtension
+
+    mandrill:
+        apiKey: "your API key"
+
+    secondMandrill:
+        apiKey: "different API key"
+        autowire: false
+```
+
 Nette\Mail support
 ------------------
 Register the library extension, require a `Nette\Mail\IMailer` instance and pass a `Nette\Mail\Message` object,
