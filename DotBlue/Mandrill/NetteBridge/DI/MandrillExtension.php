@@ -44,7 +44,10 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 			->setAutowired($autowire);
 
 		$container->addDefinition($this->prefix('mailer'))
-			->setClass('DotBlue\Mandrill\Mailer')
+			->setClass('DotBlue\Mandrill\Mailer', [
+				'exporter' => $this->prefix('@messageExporter'),
+				'api' => $this->prefix('@mandrill'),
+			])
 			->setAutowired($autowire);
 
 		$container->addDefinition($this->prefix('messageConverter'))
