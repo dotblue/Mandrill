@@ -13,8 +13,11 @@ use Nette\Utils\Strings;
  * @author Pavel Kučera
  * @author dotBlue (http://dotblue.net)
  */
-class MessageConverter extends \Nette\Object
+class MessageConverter
 {
+
+	use \Nette\SmartObject;
+
 	/**
 	 * @param \Nette\Mail\Message $originalMessage
 	 * @return \DotBlue\Mandrill\Message

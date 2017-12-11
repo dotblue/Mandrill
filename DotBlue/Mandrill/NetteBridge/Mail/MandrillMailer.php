@@ -11,8 +11,11 @@ namespace DotBlue\Mandrill\NetteBridge\Mail;
  * @author Pavel Kučera
  * @author dotBlue (http://dotblue.net)
  */
-class MandrillMailer extends \Nette\Object implements \Nette\Mail\IMailer
+class MandrillMailer implements \Nette\Mail\IMailer
 {
+
+	use \Nette\SmartObject;
+
 	/** @var MessageConverter */
 	private $converter;
 
