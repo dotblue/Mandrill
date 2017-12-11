@@ -24,11 +24,13 @@
     },
     "require": {
         "php": ">=5.4",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "nette/mail": "~2.4",
+        "nette/di": "~2.4"
     },
     "require-dev": {
         "nette/tester": "@dev",
-        "nette/nette": "~2.1"
+        "nette/bootstrap": "~2.4"
     },
     "autoload": {
         "psr-0": {
