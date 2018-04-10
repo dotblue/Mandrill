@@ -186,6 +186,8 @@ class MessageExporterTest extends \Tester\TestCase
 
 				'inline_css' => TRUE,
 				'preserve_recipients' => FALSE,
+
+				'headers' => [],
 			],
 			'async' => TRUE,
 			'ip_pool' => 'IP pool',

@@ -72,6 +72,9 @@ class MessageExporter implements IMessageExporter
 				// Attachments
 				'attachments' => $this->exportAttachments($message->getAttachments()),
 				'images' => $this->exportAttachments($message->getImages()),
+
+				// Headers
+				'headers' => $message->getHeaders(),
 			],
 		]);
 	}

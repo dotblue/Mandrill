@@ -56,6 +56,12 @@ interface IBasicMessage
 
 
 	/**
+	 * @return []
+	 */
+	function getHeaders();
+
+
+	/**
 	 * @return IAttachment[]
 	 */
 	function getImages();
