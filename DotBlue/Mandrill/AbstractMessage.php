@@ -405,4 +405,24 @@ abstract class AbstractMessage implements IBasicMessage
 
 	/** @var string[] */
 	public $metadata = [];
+
+
+	/**
+	 * @return []
+	 */
+	public function getHeaders()
+	{
+		return $this->headers;
+	}
+
+
+	/**
+	 * @param string $header
+	 * @param string $value
+	 */
+	public function addHeader($header, $value)
+	{
+		$this->headers[$header] = $value;
+	}
+
 }

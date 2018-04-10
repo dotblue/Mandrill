@@ -32,6 +32,19 @@ class MessageTest extends \Tester\TestCase
 		Assert::same('<b>HTML!</b>', $message->getHtml());
 		Assert::same('HTML!', $message->getText());
 	}
+
+
+	public function testHeaders()
+	{
+		$message = new Message('dummy');
+		$message->addHeader('header1', 'value1');
+		$message->addHeader('header2', 'value2');
+
+		Assert::same([
+			'header1' => 'value1',
+			'header2' => 'value2',
+		], $message->getHeaders());
+	}
 }
 
 (new MessageTest())->run();

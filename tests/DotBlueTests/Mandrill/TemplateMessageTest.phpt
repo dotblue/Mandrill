@@ -50,6 +50,19 @@ class TemplateMessageTest extends \Tester\TestCase
 			'secondRegion' => 'yabadabadooo',
 		], $message->getEditableRegions());
 	}
+
+
+	public function testHeaders()
+	{
+		$message = new TemplateMessage('dummy');
+		$message->addHeader('header1', 'value1');
+		$message->addHeader('header2', 'value2');
+
+		Assert::same([
+			'header1' => 'value1',
+			'header2' => 'value2',
+		], $message->getHeaders());
+	}
 }
 
 (new TemplateMessageTest())->run();
