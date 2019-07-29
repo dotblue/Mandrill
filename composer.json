@@ -23,10 +23,10 @@
         "source": "https://github.com/dotblue/mandrill"
     },
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.1",
         "ext-curl": "*",
-        "nette/mail": "~2.4",
-        "nette/di": "~2.4"
+        "nette/mail": "~3.0",
+        "nette/di": "~3.0"
     },
     "require-dev": {
         "nette/tester": "@dev",

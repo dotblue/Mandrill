@@ -34,24 +34,24 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
         }
 
 		$container->addDefinition($this->prefix('mandrill'))
-			->setClass('DotBlue\Mandrill\Mandrill', [
+			->setFactory('DotBlue\Mandrill\Mandrill', [
 				$config['apiKey'],
 			])
 			->setAutowired($autowire);
 
 		$container->addDefinition($this->prefix('messageExporter'))
-			->setClass('DotBlue\Mandrill\Exporters\MessageExporter')
+			->setFactory('DotBlue\Mandrill\Exporters\MessageExporter')
 			->setAutowired($autowire);
 
 		$container->addDefinition($this->prefix('mailer'))
-			->setClass('DotBlue\Mandrill\Mailer', [
+			->setFactory('DotBlue\Mandrill\Mailer', [
 				'exporter' => $this->prefix('@messageExporter'),
 				'api' => $this->prefix('@mandrill'),
 			])
 			->setAutowired($autowire);
 
 		$container->addDefinition($this->prefix('messageConverter'))
-			->setClass('DotBlue\Mandrill\NetteBridge\Mail\MessageConverter')
+			->setFactory('DotBlue\Mandrill\NetteBridge\Mail\MessageConverter')
 			->setAutowired($autowire);
 
 		if ($config['replaceNetteMailer'] && $autowire) {
@@ -69,7 +69,7 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 
 		$container->removeDefinition('nette.mailer');
 		$container->addDefinition('nette.mailer')
-			->setClass('DotBlue\Mandrill\NetteBridge\Mail\MandrillMailer', [
+			->setFactory('DotBlue\Mandrill\NetteBridge\Mail\MandrillMailer', [
 				'converter' => $this->prefix('@messageConverter'),
 				'mailer' => $this->prefix('@mailer')
 			]);
