@@ -26,7 +26,7 @@ class MandrillExtension extends \Nette\DI\CompilerExtension
 	public function loadConfiguration()
 	{
 		$container = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->validateConfig($this->defaults);
 		$autowire = $config['autowire'];
 
         if (empty($config['apiKey'])) {
